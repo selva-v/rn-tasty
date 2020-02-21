@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import yelp from '../api/yelp';
@@ -8,11 +8,11 @@ const SearchScreen = () => {
   const [results, setResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const searchApi = async () => {
+  const searchApi = async (searchTerm) => {
     try {
       const response = await yelp.get('/search', {
         params: {
-          term, // term: term - is shorten with ES2015
+          term: searchTerm, // 'term: term' can be shorten as 'term', with ES2015 if it's not receiving any argument
           limit: 50,
           location: 'Singapore'
         }
@@ -23,12 +23,16 @@ const SearchScreen = () => {
     }
   }
 
+  useEffect(() => {
+    searchApi('pasta');
+  }, []);
+
   return (
     <View style={styles.searchScreen}>
       <SearchBar
         term={term}
         onTermChange={setTerm} //newTerm => setTerm(newTerm) - shorten with ES2015
-        onTermSubmit={searchApi}
+        onTermSubmit={() => searchApi(term)}
       />
       <Text>{results.length}</Text>
       {errorMessage ? <Text>{errorMessage}</Text> : null}
