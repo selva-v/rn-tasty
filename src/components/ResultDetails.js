@@ -4,7 +4,11 @@ import { View, Image, Text, StyleSheet } from 'react-native';
 const ResultDetails = ({ result }) => {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: result.image_url}} style={styles.image} />
+      {!result.image_url ? 
+        <Image source={require('../../assets/image-na.png')} style={styles.image} />
+        :
+        <Image source={{ uri: result.image_url}} style={styles.image} />
+      }
       <Text style={styles.name}>{result.name}</Text>
       <Text>{result.rating} Stars, {result.review_count} Reviews</Text>
     </View>
