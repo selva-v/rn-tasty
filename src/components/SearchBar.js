@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0EEEE',
     height: 50,
     borderRadius: 5,
-    marginTop: 10,
+    marginVertical: 10,
     marginHorizontal: 15,
     flexDirection: 'row'
   },
